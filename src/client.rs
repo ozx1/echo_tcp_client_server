@@ -7,6 +7,7 @@ fn main() {
         .nth(1)
         .unwrap_or_else(|| "127.0.0.1:8080".to_owned());
 
+
     match TcpStream::connect(&addr) {
         Ok(mut s) => {
             println!("Connected to the server");

@@ -1,4 +1,4 @@
-This is a simple echo TCP server and client made in rust
+This is a simple echo TCP server and client written in rust
 
 # Usage
 
@@ -19,7 +19,7 @@ it will run on 127.0.0.1:8080 by default
 ```bash
 cargo run --bin client [addr]
 ```
-it will connect on 127.0.0.1:8080 by default
+it will connect to 127.0.0.1:8080 by default
 
 
 

@@ -1,6 +1,7 @@
 use std::env;
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
+use threadpool::ThreadPool;
 
 fn handle_client(mut stream: TcpStream) {
     loop {
@@ -20,18 +21,18 @@ fn handle_client(mut stream: TcpStream) {
 }
 
 fn main() {
-
     let addr = env::args()
         .nth(1)
         .unwrap_or_else(|| "127.0.0.1:8080".to_owned());
 
+    let pool = ThreadPool::new(6);
 
     let stream = TcpListener::bind(&addr).expect("Failed to bind");
-    println!("listeneing on {}",addr);
+    println!("listeneing on {}", addr);
 
     for stream in stream.incoming() {
         match stream {
-            Ok(s) => handle_client(s),
+            Ok(s) => pool.execute(move || handle_client(s)),
             Err(err) => {
                 println!("Failed to recieve the stream \n Error: {}", err);
                 std::process::exit(1);
