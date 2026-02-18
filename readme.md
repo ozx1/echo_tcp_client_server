@@ -11,13 +11,15 @@ cd echo_tcp_client_server
 
 ### then run the server by 
 ```bash
-cargo run --bin server
+cargo run --bin server [addr]
 ```
-it will run on port 8080
+it will run on 127.0.0.1:8080 by default
 
 ### run the client in another terminal
 ```bash
-cargo run --bin client
+cargo run --bin client [addr]
 ```
+it will connect on 127.0.0.1:8080 by default
+
 
 

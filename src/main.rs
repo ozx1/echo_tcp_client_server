@@ -1,3 +1,4 @@
+use std::env;
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 
@@ -19,8 +20,14 @@ fn handle_client(mut stream: TcpStream) {
 }
 
 fn main() {
-    let stream = TcpListener::bind("127.0.0.1:8080").expect("Failed to bind");
-    println!("listeneing on port 8080");
+
+    let addr = env::args()
+        .nth(1)
+        .unwrap_or_else(|| "127.0.0.1:8080".to_owned());
+
+
+    let stream = TcpListener::bind(&addr).expect("Failed to bind");
+    println!("listeneing on {}",addr);
 
     for stream in stream.incoming() {
         match stream {
